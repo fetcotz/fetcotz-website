@@ -10,11 +10,12 @@
         header { background: #004a99; color: white; padding: 30px; text-align: center; border-radius: 8px 8px 0 0; margin: -20px -20px 20px -20px; }
         header h1 { margin: 0; }
         h2 { color: #004a99; border-bottom: 2px solid #004a99; padding-bottom: 10px; text-align: center; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .category-card { border: 1px solid #eee; padding: 15px; border-radius: 8px; }
-        .category-card h3 { color: #d32f2f; margin-top: 0; border-bottom: 1px solid #eee; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .category-card { border: 1px solid #eee; padding: 15px; border-radius: 8px; background: #fff; }
+        .category-card h3 { color: #d32f2f; margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 5px; }
         .category-card ul { list-style: none; padding: 0; }
-        .category-card li { padding: 5px 0; border-bottom: 1px solid #f9f9f9; }
+        .category-card li { padding: 8px 0; border-bottom: 1px solid #f9f9f9; font-size: 0.95em; }
+        .category-card li:last-child { border-bottom: none; }
         .contact-section { text-align: center; margin-top: 30px; padding: 20px; background: #e3f2fd; border-radius: 8px; }
         .cta-button { background: #25d366; color: white; padding: 15px 30px; text-decoration: none; border-radius: 50px; font-weight: bold; display: inline-block; }
         .footer-box { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; color: #777; font-size: 0.9em; }
@@ -28,48 +29,78 @@
         <p>Haraka, Uhakika na Bila Usumbufu!</p>
     </header>
 
-    <h2>Huduma Zetu</h2>
+    <h2>Huduma Zetu za Nyaraka na Maombi Mtandaoni</h2>
     
     <div class="grid">
+        <!-- RITA -->
         <div class="category-card">
             <h3>RITA</h3>
             <ul>
                 <li>Maombi ya Cheti cha Kuzaliwa/Kifo</li>
-                <li>Uhakiki wa vyeti</li>
-                <li>Tangazo la ndoa</li>
+                <li>Kubadili cheti cha zamani kuwa kipya</li>
+                <li>Uhakiki wa vyeti vya Kuzaliwa/Kifo</li>
+                <li>Maombi ya tangazo la ndoa</li>
             </ul>
         </div>
+
+        <!-- NIDA & TRA -->
         <div class="category-card">
             <h3>NIDA & TRA</h3>
             <ul>
                 <li>Maombi ya NIDA</li>
-                <li>Namba ya TIN</li>
+                <li>Maombi ya Namba ya Mlipa Kodi (TIN)</li>
             </ul>
         </div>
+
+        <!-- ELIMU & MIKOPO -->
         <div class="category-card">
-            <h3>ELIMU</h3>
+            <h3>ELIMU & MIKOPO</h3>
             <ul>
-                <li>Mikopo (HESLB)</li>
-                <li>Udahili (TCU/NACTVET)</li>
+                <li>Maombi ya mkopo (HESLB)</li>
+                <li>Udahili vyuoni (TCU na NACTVET)</li>
+                <li>Maombi ya AVN (NACTVET)</li>
+                <li>Mifumo ya Matokeo na Ratiba</li>
             </ul>
         </div>
+
+        <!-- AJIRA & UTAMBULISHO -->
+        <div class="category-card">
+            <h3>AJIRA & UTAMBULISHO</h3>
+            <ul>
+                <li>Akaunti za Ajira & Maombi (PSRS)</li>
+                <li>Utengenezaji wa ID (Wanafunzi/Watumishi)</li>
+                <li>Utengenezaji wa Vyeti vya Tuzo</li>
+            </ul>
+        </div>
+
+        <!-- MAMLAKA NYINGINE -->
         <div class="category-card">
             <h3>MAMLAKA NYINGINE</h3>
             <ul>
                 <li>Bima ya Afya (NHIF)</li>
-                <li>Leseni (TAUSI)</li>
-                <li>Pasipoti (UHAMIAJI)</li>
+                <li>Leseni ya biashara (TAUSI)</li>
+                <li>Pasipoti ya kusafiria (UHAMIAJI)</li>
+                <li>Loss Report (TPF)</li>
+                <li>Barua ya utambulisho (NaPA)</li>
+            </ul>
+        </div>
+
+        <!-- BIASHARA & SME -->
+        <div class="category-card">
+            <h3>BIASHARA & SME</h3>
+            <ul>
+                <li>Vifurushi vya SME (Vodacom, Airtel, n.k)</li>
+                <li>Uuzaji wa Calculator original</li>
             </ul>
         </div>
     </div>
 
     <div class="contact-section">
-        <h3>Unahitaji Msaada?</h3>
+        <h3>Unahitaji Msaada wa Haraka?</h3>
+        <p>Wasiliana nasi sasa hivi kupitia WhatsApp kwa huduma bora.</p>
         <a href="https://wa.me/255683136329" class="cta-button">Tuma Ujumbe WhatsApp</a>
     </div>
-<footer>
-    <p>&copy; 2025 - 2026 FETCO Tanzania. Haki zote zimehifadhiwa.</p>
-</footer>
+
     <div class="footer-box">
         <p>&copy; 2025 - 2026 FETCO Tanzania. Haki zote zimehifadhiwa.</p>
     </div>
