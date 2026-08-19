@@ -1,4 +1,4 @@
-# fetcotz-website
+# fetcotzweb
 Official corporate website for FETCO Tanzania.
 
 This repository contains the source code for the official FETCO Tanzania corporate website. The site serves as the primary digital gateway for our clients to access professional office and document services.
