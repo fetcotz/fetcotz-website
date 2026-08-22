@@ -756,6 +756,190 @@
         }
 
         /* =========================
+           V3 HERO REFINEMENTS
+        ========================= */
+
+        .hero-brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            margin-bottom: 23px;
+            color: var(--blue);
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.03em;
+        }
+
+        .hero-brand::before {
+            content: "";
+            width: 30px;
+            height: 2px;
+            background: var(--gold);
+        }
+
+        .hero-slogan {
+            width: min(100%, 470px);
+            margin-top: 33px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(18, 53, 91, 0.10);
+        }
+
+        .hero-slogan strong {
+            display: block;
+            color: var(--blue);
+            font-size: 13px;
+            letter-spacing: 0.14em;
+            font-weight: 850;
+        }
+
+        .hero-slogan span {
+            display: block;
+            margin-top: 3px;
+            color: #7b8794;
+            font-size: 12px;
+        }
+
+        .integration-card {
+            width: min(100%, 430px);
+            min-height: 390px;
+            padding: 34px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(18, 53, 91, 0.10);
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.82);
+            box-shadow: var(--shadow);
+        }
+
+        .integration-card::before {
+            content: "";
+            position: absolute;
+            width: 210px;
+            height: 210px;
+            border: 1px solid rgba(201, 162, 39, 0.25);
+            border-radius: 50%;
+            right: -90px;
+            top: -85px;
+        }
+
+        .integration-card::after {
+            content: "";
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border: 1px solid rgba(18, 53, 91, 0.07);
+            border-radius: 50%;
+            right: -45px;
+            top: -55px;
+        }
+
+        .integration-label {
+            position: relative;
+            z-index: 1;
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: 850;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .integration-card h2 {
+            position: relative;
+            z-index: 1;
+            max-width: 300px;
+            margin: 14px 0 8px;
+            color: var(--blue);
+            font-size: 31px;
+            line-height: 1.12;
+            letter-spacing: -0.025em;
+        }
+
+        .integration-card > p {
+            position: relative;
+            z-index: 1;
+            max-width: 330px;
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .integration-list {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 28px;
+        }
+
+        .integration-item {
+            min-height: 66px;
+            padding: 13px 14px;
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--line);
+            border-radius: 11px;
+            background: rgba(247, 249, 252, 0.78);
+            color: var(--blue);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .integration-footer {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 27px;
+            padding-top: 19px;
+            border-top: 1px solid var(--line);
+        }
+
+        .integration-footer span {
+            color: #778493;
+            font-size: 11px;
+            font-weight: 650;
+        }
+
+        .integration-footer strong {
+            color: var(--blue);
+            font-size: 12px;
+            letter-spacing: 0.04em;
+        }
+
+        @media (max-width: 560px) {
+            .hero-brand {
+                margin-bottom: 17px;
+                font-size: 13px;
+            }
+
+            .hero-slogan {
+                margin-top: 28px;
+            }
+
+            .integration-card {
+                min-height: auto;
+                padding: 26px;
+                border-radius: 20px;
+            }
+
+            .integration-card h2 {
+                font-size: 27px;
+            }
+
+            .integration-list {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .integration-item {
+                min-height: 55px;
+            }
+        }
+
+        /* =========================
            RESPONSIVE
         ========================= */
 
@@ -983,7 +1167,7 @@
         <div class="container navbar">
 
             <a href="#mwanzo" class="logo" aria-label="FETCO Tanzania - Mwanzo">
-                <img src="images/logo/FETCOLogo.png" alt="FETCO Tanzania">
+                <img src="images/logo/FETCOLogoBGR.png" alt="FETCO Tanzania">
             </a>
 
             <nav class="nav-links" aria-label="Navigation kuu">
@@ -1029,11 +1213,11 @@
 
                 <div class="hero-content">
 
-                    <div class="eyebrow">FETCO Tanzania</div>
+                    <div class="hero-brand">FETCO Tanzania</div>
 
                     <h1>
-                        Teknolojia na Huduma
-                        <span class="gold">Zinazojengwa Juu ya Uaminifu.</span>
+                        Huduma za Kidijitali
+                        <span class="gold">kwa Urahisi.</span>
                     </h1>
 
                     <p class="hero-description">
@@ -1057,18 +1241,30 @@
                         <span>Based in Mtera, Dodoma · Serving Tanzania</span>
                     </div>
 
+                    <div class="hero-slogan">
+                        <strong>TRUST OVER GAIN</strong>
+                        <span>Msingi wa namna tunavyofanya kazi.</span>
+                    </div>
+
                 </div>
 
-                <div class="hero-visual" aria-label="FETCO Tanzania">
-                    <div class="brand-card">
-                        <span class="brand-accent"></span>
-
-                        <img
-                            src="images/logo/FETCOLogo.png"
-                            alt="FETCO Tanzania"
-                        >
-
-                        <span class="brand-caption">Trust Over Gain</span>
+                <div class="hero-visual" aria-label="FETCO Digital Services">
+                    <div class="integration-card">
+                        <div class="integration-label">FETCO Digital Services</div>
+                        <h2>Huduma mbalimbali. Sehemu moja.</h2>
+                        <p>Tunakusaidia kupata huduma muhimu za kidijitali, kiofisi, elimu, serikali na teknolojia kwa urahisi.</p>
+                        <div class="integration-list">
+                            <div class="integration-item">Huduma za Serikali</div>
+                            <div class="integration-item">Elimu na Ajira</div>
+                            <div class="integration-item">Teknolojia</div>
+                            <div class="integration-item">Nyaraka &amp; Vitambulisho</div>
+                            <div class="integration-item">Internet Services</div>
+                            <div class="integration-item">Bidhaa</div>
+                        </div>
+                        <div class="integration-footer">
+                            <span>Based in Mtera, Dodoma</span>
+                            <strong>Serving Tanzania</strong>
+                        </div>
                     </div>
                 </div>
 
@@ -1142,11 +1338,9 @@
 
                 <div class="section-title">
                     <span class="section-kicker">Msingi Wetu</span>
-                    <h2>Uaminifu Kabla ya Faida.</h2>
+                    <h2>"Trust Over Gain.</h2>
 
-                    <p>
-                        <strong>Trust Over Gain</strong> ndiyo msingi wa namna tunavyofanya kazi.
-                    </p>
+                
                 </div>
 
                 <div class="trust-grid">
@@ -1181,7 +1375,7 @@
                     <div class="about-text">
                         <div class="section-title">
                             <span class="section-kicker">Kuhusu FETCO</span>
-                            <h2>FETCO ni Nini?</h2>
+                            <h2>FETCO Tanzania ni Nini?</h2>
                         </div>
 
                         <p>
