@@ -8,34 +8,61 @@
 
     <meta
         name="description"
-        content="FETCO Tanzania — Teknolojia na huduma zinazojengwa juu ya uaminifu. Tunahudumia Tanzania kutoka Mtera, Dodoma."
+        content="FETCO Tanzania — huduma za kidijitali na kiofisi zinazojengwa juu ya uaminifu. Based in Mtera, Dodoma. Serving Tanzania."
     >
 
     <style>
+        :root {
+            --blue: #12355b;
+            --blue-dark: #0b2744;
+            --blue-soft: #edf3f8;
+            --gold: #c9a227;
+            --gold-light: #e2c45a;
+            --white: #ffffff;
+            --text: #18324a;
+            --muted: #637384;
+            --line: #e4e9ee;
+            --surface: #f7f9fc;
+            --shadow: 0 18px 50px rgba(18, 53, 91, 0.10);
+            --radius: 16px;
+            --container: 1160px;
+        }
+
         * {
             box-sizing: border-box;
         }
 
         html {
             scroll-behavior: smooth;
+            scroll-padding-top: 90px;
         }
 
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            color: #12355b;
-            background: #ffffff;
+            font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+            color: var(--text);
+            background: var(--white);
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body.menu-open {
+            overflow: hidden;
         }
 
         a {
-            text-decoration: none;
             color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
         }
 
         .container {
-            width: min(1120px, 92%);
-            margin: auto;
+            width: min(var(--container), calc(100% - 40px));
+            margin: 0 auto;
         }
 
         /* =========================
@@ -43,23 +70,31 @@
         ========================= */
 
         header {
-            background: #ffffff;
-            border-bottom: 1px solid #eeeeee;
             position: sticky;
             top: 0;
             z-index: 1000;
+            background: rgba(255, 255, 255, 0.94);
+            border-bottom: 1px solid rgba(228, 233, 238, 0.9);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
         }
 
         .navbar {
-            min-height: 78px;
+            min-height: 82px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 30px;
+            gap: 28px;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            flex-shrink: 0;
         }
 
         .logo img {
-            width: 150px;
+            width: 148px;
             height: auto;
             display: block;
         }
@@ -70,24 +105,112 @@
             gap: 28px;
         }
 
-        .nav-links a {
-            font-size: 15px;
-            font-weight: 600;
+        .nav-links > a:not(.nav-button) {
+            position: relative;
+            font-size: 14px;
+            font-weight: 650;
+            color: #30465b;
+            padding: 8px 0;
         }
 
-        .nav-links a:hover {
-            color: #c9a227;
+        .nav-links > a:not(.nav-button)::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 1px;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.22s ease;
+        }
+
+        .nav-links > a:not(.nav-button):hover {
+            color: var(--blue);
+        }
+
+        .nav-links > a:not(.nav-button):hover::after {
+            width: 100%;
         }
 
         .nav-button {
-            background: #12355b;
-            color: #ffffff !important;
-            padding: 11px 18px;
-            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 42px;
+            padding: 0 18px;
+            border-radius: 8px;
+            background: var(--blue);
+            color: var(--white) !important;
+            font-size: 14px;
+            font-weight: 750;
+            box-shadow: 0 8px 20px rgba(18, 53, 91, 0.14);
+            transition: transform 0.2s ease, background 0.2s ease;
         }
 
         .nav-button:hover {
-            background: #c9a227;
+            background: var(--blue-dark);
+            transform: translateY(-1px);
+        }
+
+        .menu-toggle {
+            display: none;
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--line);
+            border-radius: 9px;
+            background: var(--white);
+            cursor: pointer;
+            padding: 0;
+            position: relative;
+        }
+
+        .menu-toggle span,
+        .menu-toggle span::before,
+        .menu-toggle span::after {
+            width: 20px;
+            height: 2px;
+            background: var(--blue);
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .menu-toggle span {
+            top: 20px;
+        }
+
+        .menu-toggle span::before,
+        .menu-toggle span::after {
+            content: "";
+            left: 0;
+            transform: none;
+        }
+
+        .menu-toggle span::before {
+            top: -7px;
+        }
+
+        .menu-toggle span::after {
+            top: 7px;
+        }
+
+        .menu-toggle[aria-expanded="true"] span {
+            background: transparent;
+        }
+
+        .menu-toggle[aria-expanded="true"] span::before {
+            top: 0;
+            transform: rotate(45deg);
+        }
+
+        .menu-toggle[aria-expanded="true"] span::after {
+            top: 0;
+            transform: rotate(-45deg);
+        }
+
+        .mobile-menu {
+            display: none;
         }
 
         /* =========================
@@ -95,76 +218,228 @@
         ========================= */
 
         .hero {
-            min-height: 650px;
+            position: relative;
+            min-height: calc(100vh - 82px);
             display: flex;
             align-items: center;
-            background: #f7f9fc;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 85% 22%, rgba(201, 162, 39, 0.10), transparent 28%),
+                linear-gradient(135deg, #ffffff 0%, #f7f9fc 62%, #eef4f8 100%);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 420px;
+            height: 420px;
+            border: 1px solid rgba(18, 53, 91, 0.06);
+            border-radius: 50%;
+            right: -150px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border: 1px solid rgba(201, 162, 39, 0.12);
+            border-radius: 50%;
+            right: 70px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .hero-grid {
+            min-height: calc(100vh - 82px);
+            display: grid;
+            grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+            align-items: center;
+            gap: 70px;
+            padding: 78px 0;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-content {
-            max-width: 760px;
-            padding: 90px 0;
+            max-width: 690px;
         }
 
-        .hero-logo {
-            width: 180px;
-            margin-bottom: 25px;
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 24px;
+            color: var(--blue);
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 28px;
+            height: 2px;
+            background: var(--gold);
         }
 
         .hero h1 {
-            font-size: clamp(42px, 7vw, 72px);
-            line-height: 1.05;
-            margin: 0 0 20px;
-            color: #12355b;
+            margin: 0;
+            max-width: 700px;
+            color: var(--blue);
+            font-size: clamp(46px, 6vw, 76px);
+            line-height: 0.99;
+            letter-spacing: -0.045em;
+            font-weight: 800;
         }
 
-        .hero h1 span {
-            color: #c9a227;
+        .hero h1 .gold {
+            display: block;
+            color: var(--gold);
         }
 
-        .hero p {
-            max-width: 680px;
-            font-size: 20px;
-            color: #526273;
-            margin-bottom: 32px;
+        .hero-description {
+            max-width: 640px;
+            margin: 27px 0 0;
+            color: var(--muted);
+            font-size: clamp(17px, 2vw, 19px);
+            line-height: 1.75;
         }
 
         .hero-buttons {
             display: flex;
-            gap: 14px;
+            align-items: center;
+            gap: 13px;
             flex-wrap: wrap;
+            margin-top: 32px;
         }
 
         .button {
-            display: inline-block;
-            padding: 14px 24px;
-            border-radius: 6px;
-            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 50px;
+            padding: 0 22px;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: 750;
+            transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
         }
 
         .button-primary {
-            background: #12355b;
-            color: #ffffff;
-        }
-
-        .button-secondary {
-            border: 2px solid #12355b;
-            color: #12355b;
+            background: var(--blue);
+            color: var(--white);
+            box-shadow: 0 12px 26px rgba(18, 53, 91, 0.16);
         }
 
         .button-primary:hover {
-            background: #c9a227;
+            background: var(--blue-dark);
+            transform: translateY(-2px);
+        }
+
+        .button-secondary {
+            border: 1px solid #bdc9d4;
+            color: var(--blue);
+            background: rgba(255, 255, 255, 0.65);
         }
 
         .button-secondary:hover {
-            background: #12355b;
-            color: #ffffff;
+            border-color: var(--blue);
+            background: var(--white);
+            transform: translateY(-2px);
         }
 
-        .location-note {
-            margin-top: 28px;
-            font-size: 14px;
-            color: #667788;
+        .hero-location {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin-top: 25px;
+            color: #718090;
+            font-size: 13px;
+            font-weight: 550;
+        }
+
+        .hero-location .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 0 5px rgba(201, 162, 39, 0.10);
+        }
+
+        /* Hero brand visual */
+        .hero-visual {
+            min-height: 430px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .brand-card {
+            width: min(100%, 430px);
+            aspect-ratio: 1 / 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.76);
+            border: 1px solid rgba(18, 53, 91, 0.10);
+            border-radius: 28px;
+            box-shadow: var(--shadow);
+        }
+
+        .brand-card::before {
+            content: "";
+            position: absolute;
+            inset: 18px;
+            border: 1px solid rgba(201, 162, 39, 0.34);
+            border-radius: 21px;
+        }
+
+        .brand-card::after {
+            content: "";
+            position: absolute;
+            width: 62%;
+            height: 62%;
+            border: 1px solid rgba(18, 53, 91, 0.07);
+            border-radius: 50%;
+        }
+
+        .brand-card img {
+            width: 61%;
+            max-width: 255px;
+            height: auto;
+            display: block;
+            position: relative;
+            z-index: 2;
+        }
+
+        .brand-caption {
+            position: absolute;
+            left: 28px;
+            bottom: 27px;
+            z-index: 3;
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            font-weight: 800;
+            color: #718090;
+            text-transform: uppercase;
+        }
+
+        .brand-accent {
+            position: absolute;
+            top: 27px;
+            right: 28px;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 0 8px rgba(201, 162, 39, 0.10);
+            z-index: 3;
         }
 
         /* =========================
@@ -172,25 +447,37 @@
         ========================= */
 
         section {
-            padding: 90px 0;
+            padding: 96px 0;
         }
 
         .section-title {
-            max-width: 700px;
-            margin-bottom: 45px;
+            max-width: 730px;
+            margin-bottom: 46px;
+        }
+
+        .section-kicker {
+            display: inline-block;
+            margin-bottom: 12px;
+            color: var(--gold);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.11em;
+            text-transform: uppercase;
         }
 
         .section-title h2 {
-            font-size: 38px;
-            line-height: 1.15;
             margin: 0 0 15px;
-            color: #12355b;
+            color: var(--blue);
+            font-size: clamp(34px, 4vw, 46px);
+            line-height: 1.1;
+            letter-spacing: -0.025em;
         }
 
         .section-title p {
             margin: 0;
-            color: #617080;
+            color: var(--muted);
             font-size: 17px;
+            line-height: 1.75;
         }
 
         /* =========================
@@ -198,43 +485,47 @@
         ========================= */
 
         .services {
-            background: #ffffff;
+            background: var(--white);
         }
 
         .service-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 22px;
+            gap: 20px;
         }
 
         .service-card {
             padding: 30px;
-            border: 1px solid #e7ebef;
-            border-radius: 10px;
-            background: #ffffff;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: var(--white);
+            transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
         }
 
         .service-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 30px rgba(18, 53, 91, 0.08);
+            transform: translateY(-5px);
+            border-color: rgba(18, 53, 91, 0.16);
+            box-shadow: 0 16px 35px rgba(18, 53, 91, 0.08);
         }
 
         .service-card .number {
-            font-size: 14px;
-            font-weight: 700;
-            color: #c9a227;
-            margin-bottom: 12px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            color: var(--gold);
+            margin-bottom: 16px;
         }
 
         .service-card h3 {
             margin: 0 0 10px;
-            font-size: 21px;
+            color: var(--blue);
+            font-size: 20px;
         }
 
         .service-card p {
             margin: 0;
-            color: #687685;
+            color: var(--muted);
+            font-size: 15px;
         }
 
         /* =========================
@@ -242,12 +533,12 @@
         ========================= */
 
         .trust {
-            background: #12355b;
-            color: #ffffff;
+            background: var(--blue);
+            color: var(--white);
         }
 
         .trust .section-title h2 {
-            color: #ffffff;
+            color: var(--white);
         }
 
         .trust .section-title p {
@@ -257,21 +548,24 @@
         .trust-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
+            gap: 20px;
         }
 
         .trust-card {
-            padding: 28px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            border-radius: 10px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius);
+            background: rgba(255, 255, 255, 0.025);
         }
 
         .trust-card h3 {
-            margin-top: 0;
-            color: #d8b53a;
+            margin: 0 0 10px;
+            color: var(--gold-light);
+            font-size: 21px;
         }
 
         .trust-card p {
+            margin: 0;
             color: #dce5ee;
         }
 
@@ -282,25 +576,32 @@
         .about-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            gap: 65px;
             align-items: center;
         }
 
         .about-text p {
-            color: #617080;
+            color: var(--muted);
             font-size: 17px;
         }
 
         .about-highlight {
-            padding: 40px;
-            background: #f7f9fc;
-            border-left: 5px solid #c9a227;
-            border-radius: 8px;
+            padding: 42px;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-left: 4px solid var(--gold);
+            border-radius: 14px;
         }
 
         .about-highlight h3 {
-            margin-top: 0;
+            margin: 0 0 12px;
+            color: var(--blue);
             font-size: 28px;
+        }
+
+        .about-highlight p {
+            margin: 0;
+            color: var(--muted);
         }
 
         /* =========================
@@ -308,39 +609,44 @@
         ========================= */
 
         .technology {
-            background: #f7f9fc;
+            background: var(--surface);
         }
 
         .technology-box {
-            text-align: center;
-            max-width: 850px;
+            max-width: 860px;
             margin: auto;
+            text-align: center;
         }
 
         .technology-box h2 {
-            font-size: 40px;
-            margin-bottom: 18px;
+            margin: 0 0 18px;
+            color: var(--blue);
+            font-size: clamp(34px, 4vw, 46px);
+            line-height: 1.1;
         }
 
         .technology-box p {
+            margin: 0;
+            color: var(--muted);
             font-size: 18px;
-            color: #617080;
         }
 
         .technology-pillars {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
-            margin-top: 35px;
+            margin-top: 34px;
         }
 
         .technology-pillars span {
-            background: #ffffff;
-            border: 1px solid #e3e8ed;
-            padding: 10px 18px;
+            padding: 9px 16px;
+            border: 1px solid var(--line);
             border-radius: 30px;
-            font-weight: 600;
+            background: var(--white);
+            color: var(--blue);
+            font-size: 14px;
+            font-weight: 700;
         }
 
         /* =========================
@@ -348,28 +654,31 @@
         ========================= */
 
         .future {
-            background: #ffffff;
+            background: var(--white);
         }
 
         .future-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 25px;
+            gap: 20px;
         }
 
         .future-card {
-            padding: 35px;
-            border-radius: 10px;
-            background: #f7f9fc;
+            padding: 36px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: var(--surface);
         }
 
         .future-card h3 {
-            margin-top: 0;
+            margin: 0 0 12px;
+            color: var(--blue);
             font-size: 25px;
         }
 
         .future-card p {
-            color: #617080;
+            margin: 0;
+            color: var(--muted);
         }
 
         /* =========================
@@ -377,7 +686,7 @@
         ========================= */
 
         .contact {
-            background: #f7f9fc;
+            background: var(--surface);
         }
 
         .contact-grid {
@@ -392,11 +701,12 @@
 
         .contact-item strong {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
+            color: var(--blue);
         }
 
         .contact-item span {
-            color: #617080;
+            color: var(--muted);
         }
 
         /* =========================
@@ -404,9 +714,9 @@
         ========================= */
 
         footer {
-            background: #0d2945;
-            color: #ffffff;
-            padding: 45px 0 25px;
+            background: var(--blue-dark);
+            color: var(--white);
+            padding: 50px 0 25px;
         }
 
         .footer-grid {
@@ -416,7 +726,7 @@
         }
 
         footer h3 {
-            margin-top: 0;
+            margin: 0 0 12px;
         }
 
         footer p {
@@ -426,34 +736,131 @@
         .footer-links {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 9px;
+        }
+
+        .footer-links a {
+            color: #dce5ee;
         }
 
         .footer-links a:hover {
-            color: #d8b53a;
+            color: var(--gold-light);
         }
 
         .copyright {
-            margin-top: 40px;
+            margin-top: 42px;
             padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.15);
-            font-size: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.14);
+            font-size: 13px;
             color: #b9c7d3;
         }
 
         /* =========================
-           MOBILE
+           RESPONSIVE
         ========================= */
 
-        @media (max-width: 850px) {
+        @media (max-width: 980px) {
+            .nav-links {
+                gap: 18px;
+            }
+
+            .hero-grid {
+                gap: 42px;
+                grid-template-columns: 1fr 0.8fr;
+            }
+
+            .hero h1 {
+                font-size: clamp(43px, 6vw, 62px);
+            }
+
+            .brand-card {
+                max-width: 360px;
+            }
+
+            .service-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 820px) {
+            .navbar {
+                min-height: 74px;
+            }
+
+            .logo img {
+                width: 132px;
+            }
 
             .nav-links {
                 display: none;
             }
 
-            .service-grid,
-            .trust-grid {
+            .menu-toggle {
+                display: block;
+            }
+
+            .mobile-menu {
+                display: block;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 74px;
+                padding: 10px 20px 20px;
+                background: rgba(255, 255, 255, 0.98);
+                border-bottom: 1px solid var(--line);
+                box-shadow: 0 18px 35px rgba(18, 53, 91, 0.10);
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-8px);
+                transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+            }
+
+            .mobile-menu.open {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            .mobile-menu a {
+                display: block;
+                padding: 13px 5px;
+                border-bottom: 1px solid #eef1f4;
+                color: var(--blue);
+                font-size: 15px;
+                font-weight: 650;
+            }
+
+            .mobile-menu a:last-child {
+                margin-top: 10px;
+                border: 0;
+                padding: 13px 16px;
+                border-radius: 8px;
+                background: var(--blue);
+                color: var(--white);
+                text-align: center;
+            }
+
+            .hero {
+                min-height: auto;
+            }
+
+            .hero-grid {
+                min-height: auto;
                 grid-template-columns: 1fr;
+                gap: 46px;
+                padding: 70px 0 75px;
+            }
+
+            .hero-content {
+                max-width: 720px;
+            }
+
+            .hero-visual {
+                min-height: 0;
+            }
+
+            .brand-card {
+                width: min(100%, 390px);
             }
 
             .about-grid,
@@ -462,28 +869,108 @@
                 grid-template-columns: 1fr;
             }
 
-            .footer-grid {
+            .trust-grid {
                 grid-template-columns: 1fr;
             }
 
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .container {
+                width: min(var(--container), calc(100% - 28px));
+            }
+
             section {
-                padding: 65px 0;
+                padding: 72px 0;
             }
 
-            .hero {
-                min-height: auto;
+            .hero-grid {
+                padding: 55px 0 64px;
+                gap: 38px;
             }
 
-            .hero-content {
-                padding: 70px 0;
+            .eyebrow {
+                margin-bottom: 18px;
+                font-size: 11px;
             }
 
             .hero h1 {
-                font-size: 46px;
+                font-size: clamp(42px, 12vw, 55px);
+                letter-spacing: -0.04em;
             }
 
-            .hero p {
-                font-size: 18px;
+            .hero-description {
+                margin-top: 22px;
+                font-size: 16px;
+                line-height: 1.7;
+            }
+
+            .hero-buttons {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .button {
+                width: 100%;
+            }
+
+            .hero-location {
+                font-size: 12px;
+            }
+
+            .brand-card {
+                width: min(100%, 330px);
+                border-radius: 22px;
+            }
+
+            .brand-card::before {
+                inset: 14px;
+                border-radius: 16px;
+            }
+
+            .brand-caption {
+                left: 21px;
+                bottom: 20px;
+                font-size: 9px;
+            }
+
+            .brand-accent {
+                top: 22px;
+                right: 22px;
+            }
+
+            .service-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                margin-bottom: 34px;
+            }
+
+            .section-title h2 {
+                font-size: 34px;
+            }
+
+            .about-highlight,
+            .future-card,
+            .trust-card,
+            .service-card {
+                padding: 26px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition: none !important;
             }
         }
     </style>
@@ -495,11 +982,11 @@
     <header>
         <div class="container navbar">
 
-            <a href="#" class="logo">
+            <a href="#mwanzo" class="logo" aria-label="FETCO Tanzania - Mwanzo">
                 <img src="images/logo/FETCOLogo.png" alt="FETCO Tanzania">
             </a>
 
-            <nav class="nav-links">
+            <nav class="nav-links" aria-label="Navigation kuu">
                 <a href="#mwanzo">Mwanzo</a>
                 <a href="#kuhusu">Kuhusu Sisi</a>
                 <a href="#huduma">Huduma</a>
@@ -508,7 +995,29 @@
                 <a href="#mawasiliano" class="nav-button">Pata Huduma</a>
             </nav>
 
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                type="button"
+                aria-label="Fungua menyu"
+                aria-expanded="false"
+                aria-controls="mobileMenu"
+            >
+                <span></span>
+            </button>
+
         </div>
+
+        <nav class="mobile-menu" id="mobileMenu" aria-label="Navigation ya simu">
+            <a href="#mwanzo">Mwanzo</a>
+            <a href="#kuhusu">Kuhusu Sisi</a>
+            <a href="#huduma">Huduma</a>
+            <a href="#teknolojia">Teknolojia</a>
+            <a href="#mawasiliano">Mawasiliano</a>
+            <a href="https://wa.me/255683136329" target="_blank" rel="noopener">
+                Wasiliana WhatsApp
+            </a>
+        </nav>
     </header>
 
 
@@ -516,23 +1025,21 @@
     <main id="mwanzo">
 
         <section class="hero">
-            <div class="container">
+            <div class="container hero-grid">
+
                 <div class="hero-content">
 
-                    <img
-                        src="images/logo/FETCOLogo.png"
-                        alt="FETCO Tanzania"
-                        class="hero-logo"
-                    >
+                    <div class="eyebrow">FETCO Tanzania</div>
 
                     <h1>
                         Teknolojia na Huduma
-                        <span>Zinazojengwa Juu ya Uaminifu.</span>
+                        <span class="gold">Zinazojengwa Juu ya Uaminifu.</span>
                     </h1>
 
-                    <p>
-                        Tunatumia teknolojia kurahisisha huduma na shughuli
-                        za kila siku kwa watu, biashara na jamii Tanzania.
+                    <p class="hero-description">
+                        Tunatoa huduma za kidijitali na kiofisi kwa weledi na
+                        uaminifu mkubwa, tukitumia teknolojia kurahisisha
+                        maisha ya watu, biashara na jamii Tanzania.
                     </p>
 
                     <div class="hero-buttons">
@@ -540,16 +1047,31 @@
                             Angalia Huduma
                         </a>
 
-                        <a href="#mawasiliano" class="button button-secondary">
+                        <a href="https://wa.me/255683136329" class="button button-secondary" target="_blank" rel="noopener">
                             Wasiliana Nasi
                         </a>
                     </div>
 
-                    <div class="location-note">
-                        Mtera, Dodoma · Tunahudumia Tanzania
+                    <div class="hero-location">
+                        <span class="dot"></span>
+                        <span>Based in Mtera, Dodoma · Serving Tanzania</span>
                     </div>
 
                 </div>
+
+                <div class="hero-visual" aria-label="FETCO Tanzania">
+                    <div class="brand-card">
+                        <span class="brand-accent"></span>
+
+                        <img
+                            src="images/logo/FETCOLogo.png"
+                            alt="FETCO Tanzania"
+                        >
+
+                        <span class="brand-caption">Trust Over Gain</span>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -559,6 +1081,7 @@
             <div class="container">
 
                 <div class="section-title">
+                    <span class="section-kicker">Huduma Zetu</span>
                     <h2>Tunakusaidia Kufanya Mambo Kwa Urahisi</h2>
 
                     <p>
@@ -574,55 +1097,37 @@
                     <div class="service-card">
                         <div class="number">01</div>
                         <h3>Huduma za Serikali</h3>
-                        <p>
-                            NIDA, TIN, RITA, pasipoti, leseni za biashara
-                            na huduma nyingine.
-                        </p>
+                        <p>NIDA, TIN, RITA, pasipoti, leseni za biashara na huduma nyingine.</p>
                     </div>
 
                     <div class="service-card">
                         <div class="number">02</div>
                         <h3>Elimu na Ajira</h3>
-                        <p>
-                            HESLB, udahili wa vyuo, Ajira Portal,
-                            AVN na huduma nyingine.
-                        </p>
+                        <p>HESLB, udahili wa vyuo, Ajira Portal, AVN na huduma nyingine.</p>
                     </div>
 
                     <div class="service-card">
                         <div class="number">03</div>
                         <h3>Teknolojia</h3>
-                        <p>
-                            Mifumo ya matokeo, ratiba za masomo,
-                            huduma za kompyuta na teknolojia.
-                        </p>
+                        <p>Mifumo ya matokeo, ratiba za masomo, huduma za kompyuta na teknolojia.</p>
                     </div>
 
                     <div class="service-card">
                         <div class="number">04</div>
                         <h3>Vitambulisho na Nyaraka</h3>
-                        <p>
-                            Utengenezaji wa vitambulisho, vyeti vya
-                            tuzo na huduma nyingine za nyaraka.
-                        </p>
+                        <p>Utengenezaji wa vitambulisho, vyeti vya tuzo na huduma nyingine za nyaraka.</p>
                     </div>
 
                     <div class="service-card">
                         <div class="number">05</div>
                         <h3>Huduma za Internet</h3>
-                        <p>
-                            Vifurushi vya internet kwa SME kutoka
-                            Vodacom, Airtel, Yas na Halotel.
-                        </p>
+                        <p>Vifurushi vya internet kwa SME kutoka Vodacom, Airtel, Yas na Halotel.</p>
                     </div>
 
                     <div class="service-card">
                         <div class="number">06</div>
                         <h3>Bidhaa</h3>
-                        <p>
-                            Uuzaji wa calculator original na bidhaa
-                            nyingine zitakazoongezwa.
-                        </p>
+                        <p>Uuzaji wa calculator original na bidhaa nyingine zitakazoongezwa.</p>
                     </div>
 
                 </div>
@@ -636,11 +1141,11 @@
             <div class="container">
 
                 <div class="section-title">
+                    <span class="section-kicker">Msingi Wetu</span>
                     <h2>Uaminifu Kabla ya Faida.</h2>
 
                     <p>
-                        <strong>Trust Over Gain</strong> ndiyo msingi
-                        wa namna tunavyofanya kazi.
+                        <strong>Trust Over Gain</strong> ndiyo msingi wa namna tunavyofanya kazi.
                     </p>
                 </div>
 
@@ -648,26 +1153,17 @@
 
                     <div class="trust-card">
                         <h3>Uaminifu</h3>
-                        <p>
-                            Tunathamini uaminifu katika kila huduma
-                            tunayotoa na kila mteja tunayemhudumia.
-                        </p>
+                        <p>Tunathamini uaminifu katika kila huduma tunayotoa na kila mteja tunayemhudumia.</p>
                     </div>
 
                     <div class="trust-card">
                         <h3>Weledi</h3>
-                        <p>
-                            Tunajitahidi kutoa huduma kwa usahihi,
-                            uwajibikaji na kiwango cha kitaalamu.
-                        </p>
+                        <p>Tunajitahidi kutoa huduma kwa usahihi, uwajibikaji na kiwango cha kitaalamu.</p>
                     </div>
 
                     <div class="trust-card">
                         <h3>Urahisi</h3>
-                        <p>
-                            Tunatumia teknolojia kufanya huduma
-                            ziwe rahisi kufikiwa na kueleweka.
-                        </p>
+                        <p>Tunatumia teknolojia kufanya huduma ziwe rahisi kufikiwa na kueleweka.</p>
                     </div>
 
                 </div>
@@ -683,28 +1179,25 @@
                 <div class="about-grid">
 
                     <div class="about-text">
-
                         <div class="section-title">
+                            <span class="section-kicker">Kuhusu FETCO</span>
                             <h2>FETCO ni Nini?</h2>
                         </div>
 
                         <p>
-                            FETCO Tanzania ni kampuni inayolenga
-                            kuunganisha teknolojia na huduma mbalimbali
-                            ili kurahisisha maisha ya watu na biashara.
+                            FETCO Tanzania ni kampuni inayolenga kuunganisha
+                            teknolojia na huduma mbalimbali ili kurahisisha
+                            maisha ya watu na biashara.
                         </p>
 
                         <p>
                             Kampuni ilianzishwa na Fedrick Elia Tlatlaa
                             na Consolata Erasto, ikiwa na msingi wa
-                            uaminifu, huduma bora na matumizi ya
-                            teknolojia.
+                            uaminifu, huduma bora na matumizi ya teknolojia.
                         </p>
-
                     </div>
 
                     <div class="about-highlight">
-
                         <h3>Maono Yetu</h3>
 
                         <p>
@@ -712,7 +1205,6 @@
                             nchini Tanzania, tukitumia mifumo ya kidijitali
                             kurahisisha maisha ya wananchi.
                         </p>
-
                     </div>
 
                 </div>
@@ -723,10 +1215,10 @@
 
         <!-- TECHNOLOGY -->
         <section class="technology" id="teknolojia">
-
             <div class="container">
 
                 <div class="technology-box">
+                    <span class="section-kicker">Technology Integration</span>
 
                     <h2>Teknolojia Inayounganisha Maisha ya Kila Siku</h2>
 
@@ -742,82 +1234,71 @@
                         <span>Mawasiliano</span>
                         <span>Jamii</span>
                     </div>
-
                 </div>
 
             </div>
-
         </section>
 
 
         <!-- FUTURE -->
         <section class="future">
-
             <div class="container">
 
                 <div class="section-title">
+                    <span class="section-kicker">FETCO ya Leo · FETCO ya Kesho</span>
                     <h2>Tunaanzia Tulipo. Tunajenga Tunakokwenda.</h2>
 
                     <p>
-                        FETCO inakua hatua kwa hatua kuelekea mfumo
-                        mpana wa teknolojia, huduma na biashara.
+                        FETCO inakua hatua kwa hatua kuelekea mfumo mpana
+                        wa teknolojia, huduma na biashara.
                     </p>
                 </div>
 
                 <div class="future-grid">
 
                     <div class="future-card">
-
                         <h3>FETCO ya Leo</h3>
 
                         <p>
-                            Kwa sasa, huduma zetu nyingi zinafanyika
-                            chini ya jina la biashara la
-                            <strong>FETCO Digital Services</strong>,
-                            tukitoa huduma za kidijitali, nyaraka,
-                            elimu, teknolojia na huduma nyingine.
+                            Kwa sasa, huduma zetu nyingi zinafanyika chini
+                            ya jina la biashara la <strong>FETCO Digital Services</strong>,
+                            tukitoa huduma za kidijitali, nyaraka, elimu,
+                            teknolojia na huduma nyingine.
                         </p>
-
                     </div>
 
                     <div class="future-card">
-
                         <h3>FETCO ya Kesho</h3>
 
                         <p>
-                            Tunaelekea kujenga mfumo wa ventures
-                            mbalimbali katika teknolojia, elimu,
-                            internet, biashara, real estate, agriculture
-                            na sekta nyingine.
+                            Tunaelekea kujenga mfumo wa ventures mbalimbali
+                            katika teknolojia, elimu, internet, biashara,
+                            real estate, agriculture na sekta nyingine.
                         </p>
-
                     </div>
 
                 </div>
 
             </div>
-
         </section>
 
 
         <!-- CONTACT -->
         <section class="contact" id="mawasiliano">
-
             <div class="container">
 
                 <div class="section-title">
+                    <span class="section-kicker">Mawasiliano</span>
                     <h2>Wasiliana Nasi</h2>
 
                     <p>
-                        Una swali au unahitaji huduma?
-                        Tupo tayari kukusaidia.
+                        Una swali au unahitaji huduma? Tupo tayari kukusaidia.
                     </p>
                 </div>
 
                 <div class="contact-grid">
 
                     <div>
-
                         <div class="contact-item">
                             <strong>Mahali</strong>
                             <span>Mtera, Dodoma, Tanzania</span>
@@ -832,11 +1313,9 @@
                             <strong>Barua pepe</strong>
                             <span>tzfetco@gmail.com</span>
                         </div>
-
                     </div>
 
                     <div>
-
                         <h3>Unahitaji Huduma?</h3>
 
                         <p>
@@ -848,16 +1327,15 @@
                             href="https://wa.me/255683136329"
                             class="button button-primary"
                             target="_blank"
+                            rel="noopener"
                         >
                             Tuma WhatsApp
                         </a>
-
                     </div>
 
                 </div>
 
             </div>
-
         </section>
 
     </main>
@@ -865,28 +1343,23 @@
 
     <!-- FOOTER -->
     <footer>
-
         <div class="container">
 
             <div class="footer-grid">
 
                 <div>
-
                     <h3>FETCO Tanzania</h3>
 
                     <p>
-                        Teknolojia na huduma zinazojengwa
-                        juu ya uaminifu.
+                        Teknolojia na huduma zinazojengwa juu ya uaminifu.
                     </p>
 
                     <p>
                         <strong>Trust Over Gain</strong>
                     </p>
-
                 </div>
 
                 <div>
-
                     <h3>Kurasa</h3>
 
                     <div class="footer-links">
@@ -896,22 +1369,19 @@
                         <a href="#teknolojia">Teknolojia</a>
                         <a href="#mawasiliano">Mawasiliano</a>
                     </div>
-
                 </div>
 
                 <div>
-
                     <h3>Mitandao</h3>
 
                     <div class="footer-links">
                         <a href="#">Instagram · @fetcotz</a>
                         <a href="#">Facebook · FETCO Tanzania</a>
                         <a href="#">TikTok · @fetcotz</a>
-                        <a href="https://wa.me/255683136329" target="_blank">
+                        <a href="https://wa.me/255683136329" target="_blank" rel="noopener">
                             WhatsApp · 0683 136 329
                         </a>
                     </div>
-
                 </div>
 
             </div>
@@ -921,8 +1391,36 @@
             </div>
 
         </div>
-
     </footer>
+
+
+    <script>
+        const menuToggle = document.getElementById("menuToggle");
+        const mobileMenu = document.getElementById("mobileMenu");
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove("open");
+            menuToggle.setAttribute("aria-expanded", "false");
+            document.body.classList.remove("menu-open");
+        }
+
+        menuToggle.addEventListener("click", () => {
+            const isOpen = mobileMenu.classList.toggle("open");
+
+            menuToggle.setAttribute("aria-expanded", String(isOpen));
+            document.body.classList.toggle("menu-open", isOpen);
+        });
+
+        mobileMenu.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", closeMobileMenu);
+        });
+
+        window.addEventListener("resize", () => {
+            if (window.innerWidth > 820) {
+                closeMobileMenu();
+            }
+        });
+    </script>
 
 </body>
 </html>
